@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
 import type { User } from "@supabase/supabase-js";
+import { Layout } from "@/components/Layout";
+import ApplicationTable from "@/components/ApplicationTable";
 
 export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
@@ -24,21 +26,21 @@ export default function DashboardPage() {
     getUser();
   }, []);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading)
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 bg-gray-950">
+        <p className="text-gray-700 text-gray-100 text-lg">Loading...</p>
+      </div>
+    );
 
   return (
-    <main className="p-6">
-      <h1 className="text-2xl font-bold">Welcome, {user?.email}</h1>
-
-      <button
-        onClick={async () => {
-          await supabase.auth.signOut();
-          router.push("/login");
-        }}
-        className="bg-red-500 text-white px-4 py-2 rounded"
-      >
-        Logout
-      </button>
-    </main>
+    <Layout>
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-3xl font-bold text-gray-900 text-gray-100 tracking-tight">
+          Your Applications
+        </h1>
+      </div>
+      <ApplicationTable />
+    </Layout>
   );
 }

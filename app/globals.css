@@ -15,6 +15,7 @@
 html {
   color-scheme: light;
   background-color: var(--background);
+  font-size: 16px;
 }
 
 body {

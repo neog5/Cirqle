@@ -39,7 +39,7 @@ export default function AuthForm() {
     <Auth
       supabaseClient={supabase}
       appearance={{ theme: ThemeSupa }}
-      theme="dark"
+      //   theme="dark"
       providers={["google"]}
       view="sign_in"
     />
