@@ -227,6 +227,22 @@ export default function AddApplicationModal({
               className="w-full border border-green-200 border-emerald-700 rounded-lg px-3 py-2 bg-green-50 bg-gray-800 focus:border-green-400 focus:border-emerald-400 focus:bg-white focus:bg-gray-900 outline-none transition text-green-900 text-gray-100"
             />
           </div>
+          <div>
+            <label
+              className="block font-semibold mb-1 text-green-900 text-emerald-400"
+              htmlFor="notes"
+            >
+              Notes
+            </label>
+            <input
+              id="notes"
+              name="notes"
+              type="text"
+              value={form.notes}
+              onChange={handleChange}
+              className="w-full border border-green-200 border-emerald-700 rounded-lg px-3 py-2 bg-green-50 bg-gray-800 focus:border-green-400 focus:border-emerald-400 focus:bg-white focus:bg-gray-900 outline-none transition text-green-900 text-gray-100"
+            />
+          </div>
           <button
             type="submit"
             className="w-full bg-gradient-to-r from-green-500 to-green-600 from-emerald-600 to-emerald-700 hover:from-green-600 hover:to-green-700 hover:from-emerald-700 hover:to-emerald-800 text-white font-bold py-2 rounded-lg shadow-lg transition-all duration-200"
