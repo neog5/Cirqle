@@ -16,25 +16,57 @@ type Application = {
   notes: string;
 };
 
-export default function ApplicationTable() {
+interface ApplicationTableProps {
+  isSharedPage?: boolean;
+  sharedId?: string;
+}
+
+export default function ApplicationTable({
+  isSharedPage = false,
+  sharedId = "",
+}: ApplicationTableProps) {
   const [applications, setApplications] = useState<Application[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [initialData, setInitialData] = useState<Application | null>(null);
   const [mode, setMode] = useState<"add" | "edit">("add");
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState<Application | null>(null);
+  const [owner_id, setOwnerId] = useState<string | null>(null);
 
+  // 1. Set owner_id as before
+  useEffect(() => {
+    const getOwnerId = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (!user) return;
+
+      if (isSharedPage) {
+        const { data: ownerData } = await supabase
+          .from("shared_lists")
+          .select("owner_id")
+          .eq("shared_id", sharedId)
+          .single();
+
+        if (!ownerData || !ownerData.owner_id) {
+          console.error("Shared list not found or invalid sharedId");
+          return;
+        }
+        setOwnerId(ownerData.owner_id);
+      } else {
+        setOwnerId(user.id);
+      }
+    };
+    getOwnerId();
+  }, [isSharedPage, sharedId]);
+
+  // 2. Fetch applications only when owner_id is set
   const fetchApplications = async () => {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-    if (!user) return;
-
+    if (!owner_id) return;
     const { data, error } = await supabase
       .from("applications")
       .select("*")
-      .eq("user_id", user.id)
+      .eq("user_id", owner_id)
       .order("applied_at", { ascending: true });
 
     if (error) {
@@ -46,7 +78,7 @@ export default function ApplicationTable() {
 
   useEffect(() => {
     fetchApplications();
-  }, []);
+  }, [owner_id]);
 
   const handleAdd = () => {
     setMode("add");
@@ -161,14 +193,16 @@ export default function ApplicationTable() {
 
   return (
     <div className="bg-white border border-gray-200 rounded p-4 shadow">
-      <div className="flex justify-end mb-4">
-        <button
-          onClick={handleAdd}
-          className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded font-semibold transition"
-        >
-          + Add Application
-        </button>
-      </div>
+      {!isSharedPage && (
+        <div className="flex justify-end mb-4">
+          <button
+            onClick={handleAdd}
+            className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded font-semibold transition"
+          >
+            + Add Application
+          </button>
+        </div>
+      )}
       <table className="min-w-full mt-4 table-auto">
         <thead className="bg-gray-100 text-left">
           <tr>
@@ -182,9 +216,11 @@ export default function ApplicationTable() {
                     .join(" ")}
               </th>
             ))}
-            <th key={"actions"} className="px-4 py-2 text-gray-700">
-              Actions
-            </th>
+            {!isSharedPage && (
+              <th key={"actions"} className="px-4 py-2 text-gray-700">
+                Actions
+              </th>
+            )}
           </tr>
         </thead>
         <tbody>
@@ -204,23 +240,25 @@ export default function ApplicationTable() {
                   </td>
                 );
               })}
-              <td className="px-4 py-2">
-                <button
-                  className="text-emerald-600 hover:underline hover:cursor-pointer font-medium"
-                  onClick={() => handleEdit(app)}
-                >
-                  Edit
-                </button>
-                <button
-                  className="ml-2 text-red-600 hover:underline font-medium"
-                  onClick={() => {
-                    setDeleteTarget(app);
-                    setShowDeleteConfirm(true);
-                  }}
-                >
-                  Delete
-                </button>
-              </td>
+              {!isSharedPage && (
+                <td className="px-4 py-2">
+                  <button
+                    className="text-emerald-600 hover:underline hover:cursor-pointer font-medium"
+                    onClick={() => handleEdit(app)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="ml-2 text-red-600 hover:underline font-medium"
+                    onClick={() => {
+                      setDeleteTarget(app);
+                      setShowDeleteConfirm(true);
+                    }}
+                  >
+                    Delete
+                  </button>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

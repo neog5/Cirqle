@@ -20,6 +20,12 @@ export default function Sidebar() {
           Friends
         </Link>
         <Link
+          href="/share/manage"
+          className="text-slate-700 text-gray-100 hover:text-emerald-600 hover:text-emerald-400 font-medium py-2 px-2 rounded transition-colors"
+        >
+          Manage
+        </Link>
+        <Link
           href="/settings"
           className="text-slate-700 text-gray-100 hover:text-emerald-600 hover:text-emerald-400 font-medium py-2 px-2 rounded transition-colors"
         >

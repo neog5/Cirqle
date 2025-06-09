@@ -40,6 +40,7 @@ export default function DashboardPage() {
           Your Applications
         </h1>
       </div>
+      {/* Ensure ApplicationTable is a valid React component */}
       <ApplicationTable />
     </Layout>
   );
