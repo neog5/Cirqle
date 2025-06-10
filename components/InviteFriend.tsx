@@ -6,9 +6,11 @@ import { supabase } from "@/lib/supabase";
 export default function InviteFriend({
   sharedListId,
   ownerEmail,
+  onInviteSuccess,
 }: {
   sharedListId: string;
   ownerEmail: string;
+  onInviteSuccess?: () => void;
 }) {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
@@ -16,7 +18,7 @@ export default function InviteFriend({
     "idle" | "success" | "error" | "duplicate"
   >("idle");
 
-  async function handleInvite() {
+  const handleInvite = async () => {
     if (!sharedListId) {
       setStatus("error");
       return;
@@ -61,10 +63,11 @@ export default function InviteFriend({
     } else {
       setStatus("success");
       setEmail("");
+      if (onInviteSuccess) onInviteSuccess();
     }
 
     setLoading(false);
-  }
+  };
 
   return (
     <div className="space-y-4 bg-white border border-emerald-200 rounded-xl shadow p-6 max-w-md mx-auto">

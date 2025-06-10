@@ -15,6 +15,20 @@ export default function SharePage() {
   >([]);
   const [copied, setCopied] = useState(false);
 
+  const fetchInvites = async (listId: string) => {
+    const { data, error } = await supabase
+      .from("shared_list_invites")
+      .select("id, invitee_email, status")
+      .eq("shared_list_id", listId);
+
+    if (error) {
+      console.error("Error fetching invites:", error);
+      setInvites([]);
+    } else {
+      setInvites(data || []);
+    }
+  };
+
   useEffect(() => {
     const loadSharedListId = async () => {
       const {
@@ -63,20 +77,6 @@ export default function SharePage() {
       setLoading(false);
     };
 
-    const fetchInvites = async (listId: string) => {
-      const { data, error } = await supabase
-        .from("shared_list_invites")
-        .select("id, invitee_email, status")
-        .eq("shared_list_id", listId);
-
-      if (error) {
-        console.error("Error fetching invites:", error);
-        setInvites([]);
-      } else {
-        setInvites(data || []);
-      }
-    };
-
     loadSharedListId();
     // eslint-disable-next-line
   }, []);
@@ -119,30 +119,39 @@ export default function SharePage() {
         <label className="block text-gray-700 font-semibold mb-2">
           Shareable Link
         </label>
-        <div className="flex items-center gap-2">
-          <input
-            type="text"
-            readOnly
-            value={shareLink}
-            className="w-full px-3 py-2 border border-green-600 focus:border-green-600 rounded-lg bg-green-50 text-gray-900 font-mono text-sm focus:outline-none transition"
-          />
-          <button
-            onClick={handleCopy}
-            className={`px-3 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition ${
-              !shareLink ? "opacity-50 cursor-not-allowed" : ""
-            }`}
-            disabled={!shareLink}
-            type="button"
-          >
-            {copied ? "Copied!" : "Copy"}
-          </button>
-        </div>
+        {sharedListId ? (
+          <div className="flex items-center gap-2">
+            <input
+              type="text"
+              readOnly
+              value={shareLink}
+              className="w-full px-3 py-2 border border-green-600 focus:border-green-600 rounded-lg bg-green-50 text-gray-900 font-mono text-sm focus:outline-none transition"
+            />
+            <button
+              onClick={handleCopy}
+              className={`px-3 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition ${
+                !shareLink ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              disabled={!shareLink}
+              type="button"
+            >
+              {copied ? "Copied!" : "Copy"}
+            </button>
+          </div>
+        ) : (
+          <div className="text-gray-700 bg-gray-100 rounded px-3 py-2">
+            Your shareable link will appear here once your list is created.
+          </div>
+        )}
       </div>
 
       <div className="mb-12">
         <InviteFriend
           sharedListId={internalListId ?? ""}
           ownerEmail={ownerEmail}
+          onInviteSuccess={() => {
+            if (internalListId) fetchInvites(internalListId);
+          }}
         />
       </div>
 
