@@ -95,21 +95,21 @@ export default function AddApplicationModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      <div className="bg-white bg-gray-900 border border-green-100 border-gray-800 rounded-2xl shadow-2xl w-full max-w-lg p-8 relative transition-colors">
+      <div className="bg-white border border-green-100 rounded-2xl shadow-2xl w-full max-w-lg p-8 relative transition-colors">
         <button
-          className="absolute top-4 right-4 text-gray-400 text-gray-500 hover:text-gray-700 hover:text-gray-300 text-2xl"
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl"
           onClick={onClose}
           aria-label="Close"
         >
           &times;
         </button>
-        <h2 className="text-2xl font-bold mb-6 text-green-700 text-emerald-400 text-center">
+        <h2 className="text-2xl font-bold mb-6 text-green-700 text-center">
           {mode === "edit" ? "Edit Application" : "Add Application"}
         </h2>
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
             <label
-              className="block font-semibold mb-1 text-green-900 text-emerald-400"
+              className="block font-semibold mb-1 text-green-700"
               htmlFor="role"
             >
               Role
@@ -121,12 +121,12 @@ export default function AddApplicationModal({
               value={form.role}
               onChange={handleChange}
               required
-              className="w-full border border-green-200 border-emerald-700 rounded-lg px-3 py-2 bg-green-50 bg-gray-800 focus:border-green-400 focus:border-emerald-400 focus:bg-white focus:bg-gray-900 outline-none transition text-green-900 text-gray-100"
+              className="w-full border border-green-200 focus:border-green-600 rounded-lg px-3 py-2 bg-green-50 focus:bg-white outline-none transition text-gray-900"
             />
           </div>
           <div>
             <label
-              className="block font-semibold mb-1 text-green-900 text-emerald-400"
+              className="block font-semibold mb-1 text-green-700"
               htmlFor="company"
             >
               Company
@@ -138,12 +138,12 @@ export default function AddApplicationModal({
               value={form.company}
               onChange={handleChange}
               required
-              className="w-full border border-green-200 border-emerald-700 rounded-lg px-3 py-2 bg-green-50 bg-gray-800 focus:border-green-400 focus:border-emerald-400 focus:bg-white focus:bg-gray-900 outline-none transition text-green-900 text-gray-100"
+              className="w-full border border-green-200 focus:border-green-600 rounded-lg px-3 py-2 bg-green-50 focus:bg-white outline-none transition text-gray-900"
             />
           </div>
           <div>
             <label
-              className="block font-semibold mb-1 text-green-900 text-emerald-400"
+              className="block font-semibold mb-1 text-green-700"
               htmlFor="platform"
             >
               Platform
@@ -155,12 +155,12 @@ export default function AddApplicationModal({
               value={form.platform}
               onChange={handleChange}
               required
-              className="w-full border border-green-200 border-emerald-700 rounded-lg px-3 py-2 bg-green-50 bg-gray-800 focus:border-green-400 focus:border-emerald-400 focus:bg-white focus:bg-gray-900 outline-none transition text-green-900 text-gray-100"
+              className="w-full border border-green-200 focus:border-green-600 rounded-lg px-3 py-2 bg-green-50 focus:bg-white outline-none transition text-gray-900"
             />
           </div>
           <div>
             <label
-              className="block font-semibold mb-1 text-green-900 text-emerald-400"
+              className="block font-semibold mb-1 text-green-700"
               htmlFor="application_url"
             >
               Application URL
@@ -171,12 +171,12 @@ export default function AddApplicationModal({
               type="url"
               value={form.application_url}
               onChange={handleChange}
-              className="w-full border border-green-200 border-emerald-700 rounded-lg px-3 py-2 bg-green-50 bg-gray-800 focus:border-green-400 focus:border-emerald-400 focus:bg-white focus:bg-gray-900 outline-none transition text-green-900 text-gray-100"
+              className="w-full border border-green-200 focus:border-green-600 rounded-lg px-3 py-2 bg-green-50 focus:bg-white outline-none transition text-gray-900"
             />
           </div>
           <div>
             <label
-              className="block font-semibold mb-1 text-green-900 text-emerald-400"
+              className="block font-semibold mb-1 text-green-700"
               htmlFor="status"
             >
               Status
@@ -186,7 +186,7 @@ export default function AddApplicationModal({
               name="status"
               value={form.status}
               onChange={handleChange}
-              className="w-full border border-green-200 border-emerald-700 rounded-lg px-3 py-2 bg-green-50 bg-gray-800 focus:border-green-400 focus:border-emerald-400 focus:bg-white focus:bg-gray-900 outline-none transition text-green-900 text-gray-100"
+              className="w-full border border-green-200 focus:border-green-600 rounded-lg px-3 py-2 bg-green-50 focus:bg-white outline-none transition text-gray-900"
             >
               <option value="Applied">Applied</option>
               <option value="Interview">Interview</option>
@@ -196,7 +196,7 @@ export default function AddApplicationModal({
           </div>
           <div>
             <label
-              className="block font-semibold mb-1 text-green-900 text-emerald-400"
+              className="block font-semibold mb-1 text-green-700"
               htmlFor="applied_at"
             >
               Applied At
@@ -208,12 +208,12 @@ export default function AddApplicationModal({
               value={form.applied_at}
               onChange={handleChange}
               required
-              className="w-full border border-green-200 border-emerald-700 rounded-lg px-3 py-2 bg-green-50 bg-gray-800 focus:border-green-400 focus:border-emerald-400 focus:bg-white focus:bg-gray-900 outline-none transition text-green-900 text-gray-100"
+              className="w-full border border-green-200 focus:border-green-600 rounded-lg px-3 py-2 bg-green-50 focus:bg-white outline-none transition text-gray-900"
             />
           </div>
           <div>
             <label
-              className="block font-semibold mb-1 text-green-900 text-emerald-400"
+              className="block font-semibold mb-1 text-green-700"
               htmlFor="resume_url"
             >
               Resume URL
@@ -224,12 +224,12 @@ export default function AddApplicationModal({
               type="url"
               value={form.resume_url}
               onChange={handleChange}
-              className="w-full border border-green-200 border-emerald-700 rounded-lg px-3 py-2 bg-green-50 bg-gray-800 focus:border-green-400 focus:border-emerald-400 focus:bg-white focus:bg-gray-900 outline-none transition text-green-900 text-gray-100"
+              className="w-full border border-green-200 focus:border-green-600 rounded-lg px-3 py-2 bg-green-50 focus:bg-white outline-none transition text-gray-900"
             />
           </div>
           <div>
             <label
-              className="block font-semibold mb-1 text-green-900 text-emerald-400"
+              className="block font-semibold mb-1 text-green-700"
               htmlFor="notes"
             >
               Notes
@@ -240,12 +240,12 @@ export default function AddApplicationModal({
               type="text"
               value={form.notes}
               onChange={handleChange}
-              className="w-full border border-green-200 border-emerald-700 rounded-lg px-3 py-2 bg-green-50 bg-gray-800 focus:border-green-400 focus:border-emerald-400 focus:bg-white focus:bg-gray-900 outline-none transition text-green-900 text-gray-100"
+              className="w-full border border-green-200 focus:border-green-600 rounded-lg px-3 py-2 bg-green-50 focus:bg-white outline-none transition text-gray-900"
             />
           </div>
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-green-500 to-green-600 from-emerald-600 to-emerald-700 hover:from-green-600 hover:to-green-700 hover:from-emerald-700 hover:to-emerald-800 text-white font-bold py-2 rounded-lg shadow-lg transition-all duration-200"
+            className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 rounded-lg shadow-lg transition-all duration-200"
             disabled={loading}
           >
             {loading

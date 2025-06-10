@@ -99,8 +99,8 @@ export default function SharePage() {
   if (loading) {
     return (
       <Layout>
-        <div className="flex items-center justify-center min-h-[60vh]">
-          <span className="text-lg text-gray-600">Loading...</span>
+        <div className="flex items-center justify-center min-h-[60vh] bg-gray-50">
+          <span className="text-lg text-green-600">Loading...</span>
         </div>
       </Layout>
     );
@@ -109,7 +109,7 @@ export default function SharePage() {
   return (
     <Layout>
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-emerald-700 tracking-tight">
+        <h1 className="text-3xl font-bold text-green-700 tracking-tight">
           Share Your Applications
         </h1>
       </div>
@@ -124,11 +124,11 @@ export default function SharePage() {
             type="text"
             readOnly
             value={shareLink}
-            className="w-full px-3 py-2 border border-emerald-200 rounded-lg bg-emerald-50 text-emerald-900 font-mono text-sm focus:outline-none focus:border-emerald-400 transition"
+            className="w-full px-3 py-2 border border-green-600 focus:border-green-600 rounded-lg bg-green-50 text-gray-900 font-mono text-sm focus:outline-none transition"
           />
           <button
             onClick={handleCopy}
-            className={`px-3 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg font-semibold transition ${
+            className={`px-3 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition ${
               !shareLink ? "opacity-50 cursor-not-allowed" : ""
             }`}
             disabled={!shareLink}
@@ -152,12 +152,12 @@ export default function SharePage() {
         </h2>
         <div className="overflow-x-auto rounded-lg border border-emerald-200 bg-white shadow">
           <table className="min-w-full divide-y divide-emerald-100">
-            <thead className="bg-emerald-50">
+            <thead className="bg-emerald-100">
               <tr>
-                <th className="px-4 py-3 text-left text-emerald-700 font-semibold">
+                <th className="px-4 py-3 text-left text-green-700 font-semibold">
                   Email
                 </th>
-                <th className="px-4 py-3 text-left text-emerald-700 font-semibold">
+                <th className="px-4 py-3 text-left text-green-700 font-semibold">
                   Status
                 </th>
               </tr>
@@ -174,8 +174,8 @@ export default function SharePage() {
                 </tr>
               ) : (
                 invites.map((invite) => (
-                  <tr key={invite.id} className="even:bg-emerald-50">
-                    <td className="px-4 py-3 text-emerald-900">
+                  <tr key={invite.id} className="even:bg-green-50">
+                    <td className="px-4 py-3 text-gray-900">
                       {invite.invitee_email}
                     </td>
                     <td className="px-4 py-3">

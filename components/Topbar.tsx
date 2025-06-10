@@ -15,11 +15,11 @@ export default function Topbar() {
   };
 
   return (
-    <header className="h-16 bg-white bg-gray-900 border-b border-gray-200 border-gray-800 px-4 flex items-center justify-end transition-colors">
-      <div className="text-sm text-slate-600 text-gray-300 mr-4">Hi, Het</div>
+    <header className="h-16 bg-white border-b border-emerald-200 px-4 flex items-center justify-end transition-colors">
+      <div className="text-sm text-gray-700 mr-4">Hi, User</div>
       <button
         onClick={handleLogout}
-        className="bg-emerald-500 hover:bg-cyan-400 text-white font-semibold px-4 py-2 rounded transition-colors"
+        className="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded-lg transition-colors"
       >
         Logout
       </button>

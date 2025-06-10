@@ -28,20 +28,23 @@ export default function DashboardPage() {
 
   if (loading)
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 bg-gray-950">
-        <p className="text-gray-700 text-gray-100 text-lg">Loading...</p>
-      </div>
+      <Layout>
+        <div className="flex items-center justify-center min-h-[60vh] bg-gray-50">
+          <span className="text-lg text-green-600">Loading...</span>
+        </div>
+      </Layout>
     );
 
   return (
     <Layout>
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-gray-900 text-gray-100 tracking-tight">
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl font-bold text-green-700 tracking-tight">
           Your Applications
         </h1>
       </div>
-      {/* Ensure ApplicationTable is a valid React component */}
-      <ApplicationTable />
+      <div className="bg-white border border-emerald-200 rounded-xl shadow p-6">
+        <ApplicationTable />
+      </div>
     </Layout>
   );
 }

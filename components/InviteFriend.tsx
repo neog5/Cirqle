@@ -69,7 +69,7 @@ export default function InviteFriend({
   return (
     <div className="space-y-4 bg-white border border-emerald-200 rounded-xl shadow p-6 max-w-md mx-auto">
       <label
-        className="block text-emerald-700 font-semibold mb-1"
+        className="block text-green-700 font-semibold mb-1"
         htmlFor="invite-email"
       >
         Invite a Friend
@@ -84,7 +84,7 @@ export default function InviteFriend({
             setEmail(e.target.value);
             setStatus("idle");
           }}
-          className="flex-1 px-3 py-2 border border-emerald-200 rounded-lg bg-emerald-50 text-emerald-900 focus:outline-none focus:border-emerald-400 transition"
+          className="flex-1 px-3 py-2 border border-green-200 rounded-lg bg-green-50 text-gray-900 focus:outline-none focus:border-green-600 transition"
         />
         <button
           onClick={handleInvite}
@@ -101,7 +101,7 @@ export default function InviteFriend({
               !sharedListId ||
               email.trim().toLowerCase() === ownerEmail.trim().toLowerCase()
                 ? "bg-emerald-300 text-white cursor-not-allowed"
-                : "bg-emerald-500 hover:bg-emerald-600 text-white"
+                : "bg-green-600 hover:bg-green-700 text-white"
             }`}
         >
           {loading ? "Sending..." : "Send Invite"}

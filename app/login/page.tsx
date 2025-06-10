@@ -35,28 +35,27 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 bg-gray-950 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
       <div className="relative w-full max-w-md">
         {/* Decorative circle */}
-        <div className="absolute -top-16 -left-16 w-40 h-40 bg-emerald-400 opacity-20 rounded-full blur-2xl z-0"></div>
+        <div className="absolute -top-16 -left-16 w-40 h-40 bg-lime-400 opacity-20 rounded-full blur-2xl z-0"></div>
         <form
           onSubmit={handleLogin}
-          className="relative z-10 w-full bg-white bg-gray-900 border border-green-100 border-gray-800 rounded-3xl shadow-2xl p-10 space-y-7 transition-colors"
+          className="relative z-10 w-full bg-white border border-green-100 rounded-xl shadow-xl p-10 space-y-7"
         >
-          <h1 className="text-4xl font-extrabold mb-8 text-center text-green-700 text-emerald-400 drop-shadow-lg tracking-tight">
-            Login to{" "}
-            <span className="text-green-500 text-emerald-400">Cirqle</span>
+          <h1 className="text-4xl font-extrabold mb-8 text-center text-green-700 drop-shadow-lg tracking-tight">
+            Login to <span className="text-green-600">Cirqle</span>
           </h1>
 
           {errorMsg && (
-            <div className="text-red-700 text-red-400 bg-red-100 bg-red-900/30 p-3 rounded-lg text-sm text-center border border-red-200 border-red-700">
+            <div className="bg-red-100 border border-red-200 text-red-600 p-3 rounded-lg text-sm text-center">
               {errorMsg}
             </div>
           )}
 
           <div className="space-y-2">
             <label
-              className="block text-green-900 text-emerald-400 font-semibold"
+              className="block text-green-700 font-semibold"
               htmlFor="email"
             >
               Email
@@ -65,7 +64,7 @@ export default function LoginPage() {
               id="email"
               type="email"
               placeholder="you@example.com"
-              className="w-full border border-green-200 border-emerald-700 focus:border-green-400 focus:border-emerald-400 rounded-lg px-4 py-2 bg-green-50 bg-gray-800 focus:bg-white focus:bg-gray-900 outline-none transition text-green-900 text-gray-100"
+              className="w-full border border-green-200 focus:border-green-600 rounded-lg px-4 py-2 bg-green-50 focus:bg-white outline-none transition text-gray-900"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -74,7 +73,7 @@ export default function LoginPage() {
           </div>
           <div className="space-y-2">
             <label
-              className="block text-green-900 text-emerald-400 font-semibold"
+              className="block text-green-700 font-semibold"
               htmlFor="password"
             >
               Password
@@ -83,7 +82,7 @@ export default function LoginPage() {
               id="password"
               type="password"
               placeholder="••••••••"
-              className="w-full border border-green-200 border-emerald-700 focus:border-green-400 focus:border-emerald-400 rounded-lg px-4 py-2 bg-green-50 bg-gray-800 focus:bg-white focus:bg-gray-900 outline-none transition text-green-900 text-gray-100"
+              className="w-full border border-green-200 focus:border-green-600 rounded-lg px-4 py-2 bg-green-50 focus:bg-white outline-none transition text-gray-900"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -92,14 +91,14 @@ export default function LoginPage() {
           </div>
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-green-500 to-green-600 from-emerald-600 to-emerald-700 hover:from-green-600 hover:to-green-700 hover:from-emerald-700 hover:to-emerald-800 text-white font-bold py-2.5 px-4 rounded-lg shadow-lg transition-all duration-200"
+            className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2.5 px-4 rounded-lg shadow-lg transition-all duration-200"
           >
             Sign In
           </button>
           <button
             type="button"
             onClick={handleGoogleLogin}
-            className="w-full flex items-center justify-center gap-2 bg-white bg-gray-900 border border-green-200 border-emerald-700 hover:border-green-400 hover:border-emerald-400 text-green-700 text-emerald-400 font-semibold py-2.5 px-4 rounded-lg shadow transition-all duration-200 mt-2"
+            className="w-full flex items-center justify-center gap-2 bg-white border border-green-200 hover:border-green-600 text-lime-600 font-semibold py-2.5 px-4 rounded-lg shadow transition-all duration-200 mt-2"
           >
             <svg className="w-5 h-5" viewBox="0 0 48 48">
               <g>
@@ -124,11 +123,11 @@ export default function LoginPage() {
             </svg>
             Sign in with Google
           </button>
-          <div className="text-center text-sm text-green-700 text-emerald-400 mt-4">
+          <div className="text-center text-sm text-green-700 mt-4">
             Don&apos;t have an account?{" "}
             <a
               href="/signup"
-              className="underline hover:text-green-900 hover:text-emerald-300 font-semibold"
+              className="underline hover:text-lime-600 font-semibold"
             >
               Register
             </a>

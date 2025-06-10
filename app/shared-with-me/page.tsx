@@ -52,31 +52,31 @@ export default function SharedWithMePage() {
   return (
     <Layout>
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-emerald-700 tracking-tight">
+        <h1 className="text-3xl font-bold text-green-700 tracking-tight">
           Shared with Me
         </h1>
       </div>
 
       {loading ? (
-        <div className="flex items-center justify-center min-h-[40vh]">
-          <span className="text-lg text-emerald-600">Loading...</span>
+        <div className="flex items-center justify-center min-h-[40vh] bg-gray-50">
+          <span className="text-lg text-green-600">Loading...</span>
         </div>
       ) : sharedLists.length === 0 ? (
-        <div className="text-gray-500 text-center mt-10">
+        <div className="text-gray-700 text-center mt-10">
           No shared lists found.
         </div>
       ) : (
         <div className="mt-6">
           <table className="min-w-full bg-white border border-emerald-200 rounded-xl shadow">
-            <thead className="bg-emerald-50">
+            <thead className="bg-emerald-100">
               <tr>
-                <th className="px-4 py-3 text-left text-emerald-700 font-semibold">
+                <th className="px-4 py-3 text-left text-green-700 font-semibold">
                   Owner Email
                 </th>
-                <th className="px-4 py-3 text-left text-emerald-700 font-semibold">
+                <th className="px-4 py-3 text-left text-green-700 font-semibold">
                   Link
                 </th>
-                <th className="px-4 py-3 text-left text-emerald-700 font-semibold">
+                <th className="px-4 py-3 text-left text-green-700 font-semibold">
                   Status
                 </th>
               </tr>
@@ -85,15 +85,15 @@ export default function SharedWithMePage() {
               {sharedLists.map((item, idx) => (
                 <tr
                   key={item.shared_id || idx}
-                  className="even:bg-emerald-50 hover:bg-emerald-100 transition"
+                  className="even:bg-green-50 hover:bg-gray-100 transition"
                 >
-                  <td className="px-4 py-3 text-emerald-900 font-medium">
+                  <td className="px-4 py-3 text-gray-900 font-medium">
                     {item.owner_email || "Unknown"}
                   </td>
                   <td className="px-4 py-3">
                     <a
                       href={`/share/${item.shared_id}`}
-                      className="inline-flex items-center gap-1 text-emerald-600 hover:text-emerald-800 hover:underline font-medium transition"
+                      className="inline-flex items-center gap-1 text-lime-600 hover:text-green-600 hover:underline font-medium transition"
                       title="Open Shared List"
                       target="_blank"
                       rel="noopener noreferrer"
@@ -119,10 +119,10 @@ export default function SharedWithMePage() {
                     <span
                       className={
                         item.status === "accepted"
-                          ? "bg-green-50 text-green-700 px-3 py-1 rounded-full font-semibold"
+                          ? "bg-emerald-500/10 text-green-700 px-3 py-1 rounded-full font-semibold"
                           : item.status === "pending"
-                          ? "bg-yellow-50 text-yellow-700 px-3 py-1 rounded-full font-semibold"
-                          : "bg-red-50 text-red-700 px-3 py-1 rounded-full font-semibold"
+                          ? "bg-yellow-100 text-yellow-600 px-3 py-1 rounded-full font-semibold"
+                          : "bg-red-100 text-red-600 px-3 py-1 rounded-full font-semibold"
                       }
                     >
                       {item.status.charAt(0).toUpperCase() +
