@@ -1,19 +1,54 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { supabase } from "@/lib/supabase";
 
 export default function InviteFriend({
   sharedListId,
+  ownerEmail,
 }: {
   sharedListId: string;
+  ownerEmail: string;
 }) {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const [status, setStatus] = useState<
+    "idle" | "success" | "error" | "duplicate"
+  >("idle");
 
   async function handleInvite() {
+    if (!sharedListId) {
+      setStatus("error");
+      return;
+    }
+    if (email.trim().toLowerCase() === ownerEmail.trim().toLowerCase()) {
+      setStatus("error");
+      return;
+    }
     setLoading(true);
+
+    // Check for existing invite
+    const { data: existing, error: fetchError } = await supabase
+      .from("shared_list_invites")
+      .select("id")
+      .eq("shared_list_id", sharedListId)
+      .eq("invitee_email", email)
+      .single();
+
+    if (existing) {
+      setStatus("duplicate");
+      setLoading(false);
+      return;
+    }
+
+    if (fetchError && fetchError.code !== "PGRST116") {
+      // Only treat as error if not "No rows found"
+      console.error("Error checking existing invite:", fetchError);
+      setStatus("error");
+      setLoading(false);
+      return;
+    }
+
     const { error } = await supabase.from("shared_list_invites").insert({
       shared_list_id: sharedListId,
       invitee_email: email,
@@ -32,26 +67,65 @@ export default function InviteFriend({
   }
 
   return (
-    <div className="space-y-4">
-      <input
-        type="email"
-        value={email}
-        placeholder="Enter friend's email"
-        onChange={(e) => setEmail(e.target.value)}
-        className="p-2 border rounded w-full"
-      />
-      <button
-        onClick={handleInvite}
-        disabled={loading || !email}
-        className="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50"
+    <div className="space-y-4 bg-white border border-emerald-200 rounded-xl shadow p-6 max-w-md mx-auto">
+      <label
+        className="block text-emerald-700 font-semibold mb-1"
+        htmlFor="invite-email"
       >
-        {loading ? "Sending..." : "Send Invite"}
-      </button>
+        Invite a Friend
+      </label>
+      <div className="flex gap-2">
+        <input
+          id="invite-email"
+          type="email"
+          value={email}
+          placeholder="Enter friend's email"
+          onChange={(e) => {
+            setEmail(e.target.value);
+            setStatus("idle");
+          }}
+          className="flex-1 px-3 py-2 border border-emerald-200 rounded-lg bg-emerald-50 text-emerald-900 focus:outline-none focus:border-emerald-400 transition"
+        />
+        <button
+          onClick={handleInvite}
+          disabled={
+            loading ||
+            !email ||
+            !sharedListId ||
+            email.trim().toLowerCase() === ownerEmail.trim().toLowerCase()
+          }
+          className={`px-4 py-2 rounded-lg font-semibold transition
+            ${
+              loading ||
+              !email ||
+              !sharedListId ||
+              email.trim().toLowerCase() === ownerEmail.trim().toLowerCase()
+                ? "bg-emerald-300 text-white cursor-not-allowed"
+                : "bg-emerald-500 hover:bg-emerald-600 text-white"
+            }`}
+        >
+          {loading ? "Sending..." : "Send Invite"}
+        </button>
+      </div>
 
-      {status === "success" && <p className="text-green-600">Invite sent!</p>}
-      {status === "error" && (
-        <p className="text-red-600">Error sending invite.</p>
+      {status === "success" && (
+        <p className="text-green-600 font-medium mt-2">Invite sent!</p>
       )}
+      {status === "duplicate" && (
+        <p className="text-yellow-600 font-medium mt-2">
+          Invite already sent to this email.
+        </p>
+      )}
+      {status === "error" &&
+        email.trim().toLowerCase() === ownerEmail.trim().toLowerCase() && (
+          <p className="text-red-600 font-medium mt-2">
+            You cannot invite yourself.
+          </p>
+        )}
+      {status === "error" &&
+        email.trim().toLowerCase() !== ownerEmail.trim().toLowerCase() && (
+          <p className="text-red-600 font-medium mt-2">Error sending invite.</p>
+        )}
     </div>
   );
 }

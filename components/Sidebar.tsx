@@ -14,16 +14,16 @@ export default function Sidebar() {
           Dashboard
         </Link>
         <Link
-          href="/friends"
-          className="text-slate-700 text-gray-100 hover:text-emerald-600 hover:text-emerald-400 font-medium py-2 px-2 rounded transition-colors"
-        >
-          Friends
-        </Link>
-        <Link
           href="/share/manage"
           className="text-slate-700 text-gray-100 hover:text-emerald-600 hover:text-emerald-400 font-medium py-2 px-2 rounded transition-colors"
         >
-          Manage
+          Manage my list
+        </Link>
+        <Link
+          href="/shared-with-me"
+          className="text-slate-700 text-gray-100 hover:text-emerald-600 hover:text-emerald-400 font-medium py-2 px-2 rounded transition-colors"
+        >
+          Check Friends
         </Link>
         <Link
           href="/settings"

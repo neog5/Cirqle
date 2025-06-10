@@ -87,7 +87,7 @@ export default function SharedPage() {
       return;
     }
 
-    const { data: invite, error: inviteError } = await supabase
+    const { error: inviteError } = await supabase
       .from("shared_list_invites")
       .update({ status: decision })
       .eq("shared_list_id", list.id)
@@ -98,31 +98,71 @@ export default function SharedPage() {
       console.error("Error updating invite status:", inviteError);
       return;
     }
+
+    // Update the UI immediately
+    setStatus(decision);
   }
 
-  if (status === "loading") return <p>Loading...</p>;
-  if (status === "unauthorized") return <p>Access denied.</p>;
-  if (status === "declined") return <p>You declined this invite.</p>;
+  if (status === "loading")
+    return (
+      <Layout>
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <span className="text-lg text-emerald-600">Loading...</span>
+        </div>
+      </Layout>
+    );
+  if (status === "unauthorized")
+    return (
+      <Layout>
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <div className="bg-white border border-red-200 rounded-xl shadow-lg p-8 text-center">
+            <h2 className="text-2xl font-bold text-red-600 mb-2">
+              Access Denied
+            </h2>
+            <p className="text-gray-600">
+              You are not authorized to view this shared list.
+            </p>
+          </div>
+        </div>
+      </Layout>
+    );
+  if (status === "declined")
+    return (
+      <Layout>
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <div className="bg-white border border-yellow-200 rounded-xl shadow-lg p-8 text-center">
+            <h2 className="text-2xl font-bold text-yellow-600 mb-2">
+              Invite Declined
+            </h2>
+            <p className="text-gray-600">You declined this invite.</p>
+          </div>
+        </div>
+      </Layout>
+    );
 
   if (status === "pending") {
     return (
       <Layout>
-        <div className="p-6 space-y-4">
-          <h1 className="text-xl font-semibold">
-            You've been invited to view a shared list.
-          </h1>
-          <button
-            onClick={() => handleAction("accepted")}
-            className="bg-green-600 text-white px-4 py-2 rounded"
-          >
-            Accept
-          </button>
-          <button
-            onClick={() => handleAction("declined")}
-            className="bg-red-500 text-white px-4 py-2 rounded"
-          >
-            Decline
-          </button>
+        <div className="flex flex-col items-center justify-center min-h-[60vh]">
+          <div className="bg-white border border-emerald-200 rounded-xl shadow-lg p-8 text-center max-w-md w-full">
+            <h1 className="text-2xl font-bold text-emerald-700 mb-4">
+              You've been invited to view a shared list.
+            </h1>
+            <div className="flex gap-4 justify-center mt-6">
+              <button
+                onClick={() => handleAction("accepted")}
+                className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-lg font-semibold transition"
+              >
+                Accept
+              </button>
+              <button
+                onClick={() => handleAction("declined")}
+                className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg font-semibold transition"
+              >
+                Decline
+              </button>
+            </div>
+          </div>
         </div>
       </Layout>
     );
@@ -131,11 +171,12 @@ export default function SharedPage() {
   if (status === "accepted") {
     return (
       <Layout>
-        <div className="p-6 space-y-4">
-          <h1 className="text-xl font-semibold">Shared Job List</h1>
-          {/* TODO: Render actual shared data here */}
-          <p className="text-gray-600">
-            This is where the job applications will show.
+        <div className="p-6 space-y-4 max-w-4xl mx-auto">
+          <h1 className="text-2xl font-bold text-emerald-700 mb-2">
+            Shared Job List
+          </h1>
+          <p className="text-gray-600 mb-4">
+            Below is the list of applications shared with you:
           </p>
           {shared_id && (
             <ApplicationTable
@@ -147,5 +188,11 @@ export default function SharedPage() {
       </Layout>
     );
   }
-  return <p>Unknown status.</p>;
+  return (
+    <Layout>
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <span className="text-lg text-gray-600">Unknown status.</span>
+      </div>
+    </Layout>
+  );
 }

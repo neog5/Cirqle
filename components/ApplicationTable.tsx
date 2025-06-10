@@ -93,6 +93,11 @@ export default function ApplicationTable({
   };
 
   const handleDelete = async (app: Application) => {
+    if (isSharedPage) {
+      // If it's a shared page, we should not allow deletion
+      console.warn("Deletion is not allowed on shared pages.");
+      return;
+    }
     const { error } = await supabase
       .from("applications")
       .delete()
@@ -108,6 +113,11 @@ export default function ApplicationTable({
   };
 
   const handleSubmit = async (form: Partial<Application>) => {
+    if (isSharedPage) {
+      // If it's a shared page, we should not allow submission
+      console.warn("Submission is not allowed on shared pages.");
+      return;
+    }
     const {
       data: { user },
     } = await supabase.auth.getUser();
