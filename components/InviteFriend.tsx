@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase/client";
 
 export default function InviteFriend({
   sharedListId,
@@ -19,6 +19,7 @@ export default function InviteFriend({
   >("idle");
 
   const handleInvite = async () => {
+    const supabase = createClient();
     if (!sharedListId) {
       setStatus("error");
       return;

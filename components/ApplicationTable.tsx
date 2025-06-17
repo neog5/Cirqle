@@ -1,6 +1,6 @@
 "use client";
 
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase/client";
 import { useEffect, useState } from "react";
 import AddApplicationModal from "./AddApplicationModal";
 
@@ -35,6 +35,7 @@ export default function ApplicationTable({
 
   // 1. Set owner_id as before
   useEffect(() => {
+    const supabase = createClient();
     const getOwnerId = async () => {
       const {
         data: { user },
@@ -62,6 +63,7 @@ export default function ApplicationTable({
 
   // 2. Fetch applications only when owner_id is set
   const fetchApplications = async () => {
+    const supabase = createClient();
     if (!owner_id) return;
     const { data, error } = await supabase
       .from("applications")
@@ -93,6 +95,7 @@ export default function ApplicationTable({
   };
 
   const handleDelete = async (app: Application) => {
+    const supabase = createClient();
     if (isSharedPage) {
       // If it's a shared page, we should not allow deletion
       console.warn("Deletion is not allowed on shared pages.");
@@ -113,6 +116,7 @@ export default function ApplicationTable({
   };
 
   const handleSubmit = async (form: Partial<Application>) => {
+    const supabase = createClient();
     if (isSharedPage) {
       // If it's a shared page, we should not allow submission
       console.warn("Submission is not allowed on shared pages.");

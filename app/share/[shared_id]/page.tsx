@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase/client";
 import { useRouter, useParams } from "next/navigation";
 import { Layout } from "@/components/Layout";
 import ApplicationTable from "@/components/ApplicationTable";
@@ -16,6 +16,7 @@ export default function SharedPage() {
 
   useEffect(() => {
     const loadInviteStatus = async () => {
+      const supabase = createClient();
       const {
         data: { user },
       } = await supabase.auth.getUser();
@@ -65,6 +66,8 @@ export default function SharedPage() {
   }, [shared_id]);
 
   async function handleAction(decision: "accepted" | "declined") {
+    const supabase = createClient();
+
     const {
       data: { user },
       error: userError,

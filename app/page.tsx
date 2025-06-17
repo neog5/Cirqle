@@ -3,11 +3,13 @@ export const dynamic = "force-dynamic";
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase/client";
 
 export default function Home() {
   const router = useRouter();
   useEffect(() => {
+    const supabase = createClient();
+
     const checkSession = async () => {
       const {
         data: { session },
