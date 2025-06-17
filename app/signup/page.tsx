@@ -3,7 +3,7 @@ export const dynamic = "force-dynamic";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase/client";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -15,6 +15,7 @@ export default function SignupPage() {
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg("");
+    const supabase = createClient();
 
     const isMatch = checkPasswordMatch(password, confirmPassword);
     if (!isMatch) {
@@ -35,6 +36,7 @@ export default function SignupPage() {
 
   const handleGoogleLogin = async () => {
     setErrorMsg("");
+    const supabase = createClient();
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {

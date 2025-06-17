@@ -26,6 +26,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
   line-height: 1.5;
+  font-size: 1rem;
 }
 
 /* Optional: animation styles */

@@ -24,7 +24,9 @@ export default function ResumeUpload() {
     formData.append("resume", file);
     formData.append("job_description", jobDescription);
 
-    const res = await fetch("/api/match-resume", {
+    const url = new URL("/api/match-resume", process.env.NEXT_PUBLIC_SITE_URL);
+
+    const res = await fetch(url, {
       method: "POST",
       body: formData,
       credentials: "include",

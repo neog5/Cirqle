@@ -2,7 +2,7 @@
 export const dynamic = "force-dynamic";
 
 import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { Layout } from "@/components/Layout";
 
@@ -19,6 +19,7 @@ export default function SharedWithMePage() {
   const router = useRouter();
 
   useEffect(() => {
+    const supabase = createClient();
     const fetchSharedLists = async () => {
       const {
         data: { user },

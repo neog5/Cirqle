@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import InviteFriend from "@/components/InviteFriend";
 import { Layout } from "@/components/Layout";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase/client";
 
 export default function SharePage() {
   const [sharedListId, setSharedListId] = useState<string | null>(null);
@@ -16,6 +16,7 @@ export default function SharePage() {
   const [copied, setCopied] = useState(false);
 
   const fetchInvites = async (listId: string) => {
+    const supabase = createClient();
     const { data, error } = await supabase
       .from("shared_list_invites")
       .select("id, invitee_email, status")
@@ -31,6 +32,8 @@ export default function SharePage() {
 
   useEffect(() => {
     const loadSharedListId = async () => {
+      const supabase = createClient();
+
       const {
         data: { user },
       } = await supabase.auth.getUser();

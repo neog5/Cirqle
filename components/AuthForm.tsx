@@ -4,12 +4,13 @@ export const dynamic = "force-dynamic";
 import React, { useEffect } from "react";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 
 export default function AuthForm() {
   const router = useRouter();
 
+  const supabase = createClient();
   useEffect(() => {
     // Redirect immediately if already logged in
     const checkSession = async () => {

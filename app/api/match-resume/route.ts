@@ -1,21 +1,22 @@
 export const runtime = "nodejs";
 
 import { NextRequest, NextResponse } from "next/server";
+import { createClient } from "@/lib/supabase/server";
 
 export async function POST(request: NextRequest) {
-  // const supabase = await createClient();
+  const supabase = await createClient();
 
-  // const {
-  //   data: { user },
-  //   error: userError,
-  // } = await supabase.auth.getUser();
-  // if (userError) {
-  //   console.error("Error fetching user:", userError);
-  //   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  // }
-  // if (!user) {
-  //   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  // }
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+  if (userError) {
+    console.error("Error fetching user:", userError);
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  if (!user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
 
   const formData = await request.formData();
   const file = formData.get("resume") as File | null;

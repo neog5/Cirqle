@@ -1,7 +1,7 @@
 "use client";
 export const dynamic = "force-dynamic"; // Force dynamic rendering for this page
 import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import type { User } from "@supabase/supabase-js";
 import { Layout } from "@/components/Layout";
@@ -11,6 +11,8 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<User | null>(null);
   const router = useRouter();
+
+  const supabase = createClient();
 
   useEffect(() => {
     const getUser = async () => {
