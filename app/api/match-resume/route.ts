@@ -2,8 +2,6 @@ export const runtime = "nodejs";
 
 import { NextRequest, NextResponse } from "next/server";
 
-// type Database = any
-
 export async function POST(request: NextRequest) {
   // const supabase = await createClient();
 
