@@ -11,8 +11,10 @@
   "dependencies": {
     "@supabase/auth-js": "^2.70.0",
     "@supabase/auth-ui-react": "^0.4.7",
+    "@supabase/ssr": "^0.6.1",
     "@supabase/supabase-js": "^2.49.9",
     "next": "15.3.3",
+    "pdf-parse": "^1.1.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

@@ -26,6 +26,12 @@ export default function Sidebar() {
           Check Friends
         </Link>
         <Link
+          href="/resume-matching"
+          className="text-gray-700 hover:text-green-600 font-medium py-2 px-2 rounded transition-colors"
+        >
+          Resume Matching
+        </Link>
+        <Link
           href="/settings"
           className="text-gray-700 hover:text-green-600 font-medium py-2 px-2 rounded transition-colors"
         >
