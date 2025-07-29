@@ -69,7 +69,9 @@ export default function AddApplicationModal({
   }, [initialData, isOpen, mode]);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
   ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -94,8 +96,8 @@ export default function AddApplicationModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      <div className="bg-white border border-green-100 rounded-2xl shadow-2xl w-full max-w-lg p-8 relative transition-colors">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4 py-8">
+      <div className="bg-white border border-green-100 rounded-2xl shadow-2xl w-full max-w-lg p-8 relative transition-colors max-h-[90vh] flex flex-col">
         <button
           className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl"
           onClick={onClose}
@@ -106,7 +108,11 @@ export default function AddApplicationModal({
         <h2 className="text-2xl font-bold mb-6 text-green-700 text-center">
           {mode === "edit" ? "Edit Application" : "Add Application"}
         </h2>
-        <form className="space-y-4" onSubmit={handleSubmit}>
+        <form
+          className="space-y-4 overflow-y-auto"
+          style={{ maxHeight: "80vh" }}
+          onSubmit={handleSubmit}
+        >
           <div>
             <label
               className="block font-semibold mb-1 text-green-700"
@@ -234,13 +240,13 @@ export default function AddApplicationModal({
             >
               Notes
             </label>
-            <input
+            <textarea
               id="notes"
               name="notes"
-              type="text"
               value={form.notes}
               onChange={handleChange}
-              className="w-full border border-green-200 focus:border-green-600 rounded-lg px-3 py-2 bg-green-50 focus:bg-white outline-none transition text-gray-900"
+              rows={3}
+              className="w-full border border-green-200 focus:border-green-600 rounded-lg px-3 py-2 bg-green-50 focus:bg-white outline-none transition text-gray-900 resize-y"
             />
           </div>
           <button
