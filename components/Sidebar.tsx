@@ -32,6 +32,12 @@ export default function Sidebar() {
           Resume Matching
         </Link>
         <Link
+          href="/profile"
+          className="text-gray-700 hover:text-green-600 font-medium py-2 px-2 rounded transition-colors"
+        >
+          Profile
+        </Link>
+        <Link
           href="/about"
           className="text-gray-700 hover:text-green-600 font-medium py-2 px-2 rounded transition-colors"
         >
